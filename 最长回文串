@@ -1,0 +1,30 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        String odd = ""; 
+        String even = "";
+        String tmp = "";
+        String res = "";
+        int max = 0;
+        int greater = 0;
+        for(int i = 0; i < s.length(); i++){
+            odd = palindromic(s, i, i);
+            even = palindromic(s, i, i+1);
+            tmp = odd.length() >= even.length() ? odd : even;
+            if(tmp.length() > max){
+                max = tmp.length();
+                res = tmp;
+            }
+        }
+        return res;
+    }
+    public String palindromic(String s, int left, int right){
+        while(left >= 0 && right < s.length()){
+            if(s.charAt(left) == s.charAt(right)){
+                left--;
+                right++;
+            }else{
+                break;
+            }
+        }
+        return s.substring(left+1, right);
+    }
