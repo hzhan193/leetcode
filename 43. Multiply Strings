@@ -1,0 +1,77 @@
+class Solution {
+    public String multiply(String num1, String num2) {
+        int l1 = num1.length();
+        int l2 = num2.length();
+        if(num1.charAt(0) == '0' || num2.charAt(0) == '0')
+            return "0";
+        int sum = 0;
+        int carry = 0;
+        String res = "0";
+        String finalRes = "";
+        for(int i = 0; i < l2; i++){
+            String result = productByDigit(num2.charAt(l2 - 1 - i), i, num1, l1);
+            res = addString(result, res);
+            //System.out.println(i + ", " + res);
+        }
+        for(int k = 0; k < res.length(); k++){
+            finalRes += res.charAt(res.length() - 1 - k);
+        }
+        return finalRes;
+    }
+    public String productByDigit(Character digit, int index, String num1, int len) {
+        String production = "";
+        int carry = 0;
+        int product = 0;
+        int oneDigit = digit - '0';
+        for(int j = 0; j < index; j++) {
+            production += "0";
+        }
+        for(int i = 0; i < len; i++) {
+            int tmp = num1.charAt(len - 1 - i) - '0';
+            product = tmp * oneDigit + carry;
+            carry = product / 10;
+            production += product % 10;
+        }
+        if(carry > 0){
+           production += carry; 
+        }
+        return production;
+    }
+    public String addString(String num1, String num2) {
+        int carry = 0;
+        int rest = 0;
+        int i = 0;
+        int j = 0;
+        String res = "";
+        String finalRes = "";
+        while(i < num1.length() && j < num2.length()) {
+            int num1_int = num1.charAt(i) -'0';
+            int num2_int = num2.charAt(j) -'0';
+            rest = (num1_int + num2_int + carry) % 10;
+            carry = (num1_int + num2_int + carry) / 10;
+            res += rest;
+            i++;
+            j++;
+        }
+        if(j == num2.length()){
+            while(i < num1.length()){
+                rest = (num1.charAt(i) - '0' + carry) % 10;
+                carry = (num1.charAt(i) - '0' + carry) / 10;
+                res += rest;
+                i++;
+            }
+        }
+        if(i == num1.length()){
+            while(j < num2.length()){
+                rest = (num2.charAt(i) - '0' + carry) % 10;
+                carry = (num2.charAt(i) - '0' + carry) / 10;
+                res += rest;
+                j++;
+            }
+        }
+        if(carry > 0){
+            res += carry; 
+        }
+        return res;
+    }
+}
