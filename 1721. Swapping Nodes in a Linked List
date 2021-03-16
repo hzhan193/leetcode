@@ -8,6 +8,8 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ 
+ /*use arraylist to solve*/
 class Solution {
     public ListNode swapNodes(ListNode head, int k) {
         if(head == null) return head;
@@ -31,6 +33,38 @@ class Solution {
             p.val = nums.get(i);
             p = p.next;
         }
+        return head;
+    }
+}
+/*use fast and slow pointers to solve*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode swapNodes(ListNode head, int k) {
+        if(head == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode tmp = null;
+        while(k - 1 > 0){
+            fast = fast.next;
+            k--;
+        }
+        tmp = fast;
+        while(fast.next != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        int val = tmp.val;
+        tmp.val = slow.val;
+        slow.val = val;
         return head;
     }
 }
