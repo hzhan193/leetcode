@@ -1,0 +1,25 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int len = nums.length;
+        return binarySearch(nums, target, 0, len - 1);
+    }
+    
+    public int binarySearch(int[] nums, int target, int left, int right){
+        if(left > right) {
+            //System.out.println(left + ", " + right);
+            return - 1;
+        }
+        
+        int mid = (left + right) / 2;
+        if(nums[mid] > target ){
+            //System.out.println(left + ", " + right + ">>>>");
+            return binarySearch(nums, target, left, mid - 1);
+            
+        }else if(nums[mid] < target){
+            //System.out.println(left + ", " + right + "<<<<");
+            return binarySearch(nums, target, mid + 1, right);
+            
+        }
+        return mid;
+    }
+}
