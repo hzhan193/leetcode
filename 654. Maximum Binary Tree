@@ -15,18 +15,11 @@
  */
 class Solution {
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        int index = findMaxValueIndex(nums, 0, nums.length - 1);
-        //System.out.println(index);
-        TreeNode root = new TreeNode(nums[index]);
-        root.left = maximumBinaryTree(nums, 0, index - 1);
-        root.right = maximumBinaryTree(nums, index + 1, nums.length - 1);
-        
-        return root;
+        return maximumBinaryTree(nums, 0, nums.length - 1);
     }
     public TreeNode maximumBinaryTree(int[] nums, int left, int right){
-        if(left > right || right > (nums.length - 1) || left < 0) return null;
+        if(left > right) return null;
         int index = findMaxValueIndex(nums, left, right);
-        //System.out.println(index);
         TreeNode node = new TreeNode(nums[index]);
         node.left = maximumBinaryTree(nums, left, index - 1);
         node.right = maximumBinaryTree(nums, index + 1, right);
