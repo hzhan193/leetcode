@@ -24,7 +24,7 @@ class Solution {
                 root = root.left;
             }
             root = st.pop();
-            if(pre != null && root.val < pre){
+            if(pre != null && root.val <= pre){
                 return false;
             }
             pre = root.val;
