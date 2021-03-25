@@ -1,0 +1,25 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        //System.out.println(nums1.length);
+        int len = nums1.length;
+        int i = m - 1;
+        int j = n - 1;
+        int tmp = 0;
+        while(i >= 0  && j >= 0){//find the max value and store in the last of the array
+            if(nums1[i] > nums2[j]){
+                nums1[len - 1] = nums1[i];
+                i--;
+                len--;
+                
+            }else{
+                nums1[len - 1] = nums2[j];
+                j--;
+                len--;
+            }
+        }
+        while(j >= 0){
+            nums1[len - 1] = nums2[j--];
+            len--;
+        }
+    }
+}
