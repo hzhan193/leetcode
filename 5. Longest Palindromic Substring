@@ -1,0 +1,27 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        String even = "";
+        String odd = "";
+        String tmp = "";
+        String ans = "";
+        for(int i = 0; i < s.length(); i++){
+            even = isPalindrome(s, i, i);
+            odd = isPalindrome(s, i, i + 1);
+            tmp = even.length() > odd.length() ? even : odd;
+            if(tmp.length() > ans.length())
+                ans = tmp;
+        }
+        return ans;
+    }
+    public String isPalindrome(String s, int left, int right){
+        while(left >= 0 && right < s.length()){
+            if(s.charAt(left) == s.charAt(right)){
+                left--;
+                right++;
+            }else{
+                break;
+            }
+        }
+        return s.substring(left + 1, right);
+    }
+}
