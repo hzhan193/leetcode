@@ -1,0 +1,24 @@
+class Solution {
+// this one uses brute-force so it is not recommend
+    public int maxSubArray(int[] nums) {
+        int size = nums.length;
+        if(size == 1) return nums[0];
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        
+        for(int i = 0; i < size; i++){
+            sum = nums[i];
+            if(sum > max){
+                max = sum;
+            }
+            for(int j = i + 1; j < size; j++){
+                sum += nums[j];
+                if(sum > max){
+                    max = sum;
+                }
+            }
+            //System.out.println(max);
+        }
+        return max;
+    }
+}
