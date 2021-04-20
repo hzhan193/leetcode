@@ -1,0 +1,55 @@
+class Solution {
+    public String decodeString(String s) {
+        int len = s.length();
+        char c;
+        Stack<String> st = new Stack<>();
+        String ans = "";
+        String strNum;
+        StringBuilder partialAns = new StringBuilder();
+        int i = 0;
+        while(i < len){
+            c = s.charAt(i);
+            if(Character.isDigit(c)){
+                strNum = getNumber(i, s);
+                st.push(strNum);
+                i += strNum.length();
+            }else if(Character.isLetter(c) || c == '['){
+                st.push(s.substring(i, i + 1));
+                i++;
+            }else if(c == ']'){
+                while(!st.peek().equals("[")){
+                    partialAns.append(st.pop());
+                }
+                st.pop();//pop the '[' 
+            
+                int num = Integer.parseInt(st.pop());
+                while(num > 0){
+                    st.push(partialAns.toString());
+                    num--;
+                }
+                i++;
+                partialAns.setLength(0);
+            }
+        }
+        while(!st.isEmpty()){
+            ans += st.pop();
+        }
+        return reverse(ans);
+    }
+    
+    public String getNumber(int index, String s){
+        String num = "";
+        while(Character.isDigit(s.charAt(index))){
+            num += s.charAt(index++);
+        }
+        return num;
+    }
+    public String reverse(String ans){
+        int len = ans.length();
+        String reverse = "";
+        for(int i = 0; i < len; i++){
+            reverse += ans.charAt(len - 1 - i);
+        }
+        return reverse;
+    }
+}
