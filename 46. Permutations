@@ -1,0 +1,56 @@
+class Solution {
+    List<List<Integer>> res;
+    List<Integer> set;
+    public List<List<Integer>> permute(int[] nums) {
+        /*
+        res = new LinkedList<>();
+        LinkedList<Integer> track = new LinkedList<>();
+        backtrack(nums, track);
+        */
+        res = new ArrayList<>();
+        List<Integer> set = new ArrayList<>();
+        backTrack(nums, set);
+        return res;
+    }
+    
+    public void backTrack(int[] nums, List<Integer> set) {
+        if(nums.length == set.size()) {
+            res.add(new ArrayList(set));
+            return;
+        }
+        for(int i = 0; i < nums.length; i++) {
+            if(!isValid(nums[i], set)) {
+                continue;
+            }
+            set.add(nums[i]);
+            backTrack(nums, set);
+            set.remove(set.size() - 1);
+        }
+    }
+    public boolean isValid(int num, List<Integer> set) {
+        for(Integer i : set) {
+            if(num == i) return false;
+        }
+        return true;
+    }
+    /*
+    void backtrack(int[] nums, LinkedList<Integer> track) {
+    // 触发结束条件
+    if (track.size() == nums.length) {
+        res.add(new LinkedList(track));
+        return;
+    }
+    
+    for (int i = 0; i < nums.length; i++) {
+        // 排除不合法的选择
+        if (track.contains(nums[i]))
+            continue;
+        // 做选择
+        track.add(nums[i]);
+        // 进入下一层决策树
+        backtrack(nums, track);
+        // 取消选择
+        track.removeLast();
+    }
+    }*/
+}
