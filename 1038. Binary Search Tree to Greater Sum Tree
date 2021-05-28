@@ -12,3 +12,35 @@ class Solution {
         helper(node.left);
     }
 }
+
+
+class Solution {
+    private int sum = 0;
+    
+    public TreeNode convertBST(TreeNode root) {
+        int sum = 0;
+        TreeNode node = root;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+
+        while (!stack.isEmpty() || node != null) {
+            /* push all nodes up to (and including) this subtree's maximum on
+             * the stack. */
+            while (node != null) {
+                System.out.println("node in the second while loop: " + node.val);
+                stack.add(node);
+                node = node.right;
+            }
+            node = stack.pop();
+            System.out.println("the peak of the stack: " + node.val);
+            sum += node.val;
+            node.val = sum;
+            System.out.println("the sum is: " + sum);
+
+            /* all nodes with values between the current and its parent lie in
+             * the left subtree. */
+            node = node.left;
+        }
+
+        return root;
+    }
+}
