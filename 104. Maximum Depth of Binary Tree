@@ -1,0 +1,16 @@
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        
+        int l = getDepth(root.left);
+        int r = getDepth(root.right);
+        
+        return Math.max(l, r) + 1;
+    }
+    
+    public int getDepth(TreeNode node) {
+        if(node == null) return 0;
+        
+        return Math.max(getDepth(node.left) + 1, getDepth(node.right) + 1);
+    }
+}
