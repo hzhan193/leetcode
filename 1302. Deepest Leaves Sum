@@ -1,0 +1,21 @@
+class Solution {
+    int sum = 0;
+    public int deepestLeavesSum(TreeNode root) {
+        int depth = maxDepth(root);
+        getSum(root, depth);
+        return sum;
+    }
+    
+    public int maxDepth(TreeNode node) {
+        if(node == null) return 0;
+        return Math.max(maxDepth(node.left) + 1, maxDepth(node.right) + 1);
+    }
+    public void getSum(TreeNode node, int depth) {
+        if(node == null) return;
+        if(depth == 1) {
+            sum += node.val;
+        }
+        getSum(node.left, depth - 1);
+        getSum(node.right, depth - 1);
+    }
+}
