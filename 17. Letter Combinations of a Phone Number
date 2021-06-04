@@ -1,0 +1,46 @@
+class Solution {
+    HashMap<Character, String> map;
+    List<String> ans;
+    public List<String> letterCombinations(String digits) {
+        if(digits.isEmpty()) return new ArrayList<String>();
+        
+        ans = new ArrayList<>();
+        char[] chars = digits.toCharArray();
+        StringBuilder str = new StringBuilder();
+        map = mapping(chars);
+
+        backtracking(chars, str, 0);
+        
+        return ans;
+    }
+    
+    public void backtracking(char[] chars, StringBuilder str, int index) {
+        /* if find a solution, store it in the list */
+        if(str.length() == chars.length) {
+            ans.add(new String(str));
+            return;
+        }
+        
+        String val = map.get(chars[index]);
+        
+        for(int i = 0; i < val.length(); i++) {
+            str.append(val.charAt(i));
+            backtracking(chars, str, index + 1);
+            str.setLength(str.length() -1);
+        }
+    }
+    
+    public HashMap<Character, String> mapping(char[] chars) {
+        HashMap<Character, String> map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        
+        return map;
+    }
+}
