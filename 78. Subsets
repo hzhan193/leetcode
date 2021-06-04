@@ -1,0 +1,21 @@
+class Solution {
+    private List<List<Integer>> ans; 
+    public List<List<Integer>> subsets(int[] nums) {
+        ans = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        ans.add(list);
+        backtracking(nums, 0, list);
+        return ans;
+    }
+    
+    public void backtracking(int[] nums, int start, List<Integer> list) {
+
+        
+        for(int i = start; i < nums.length; i++){
+            list.add(nums[i]);
+            ans.add(new ArrayList<Integer>(list));
+            backtracking(nums, i + 1, list);
+            list.remove(list.size() - 1);
+        }
+    }
+}
