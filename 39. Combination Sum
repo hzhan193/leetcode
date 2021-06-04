@@ -1,0 +1,30 @@
+class Solution {
+    private List<List<Integer>> ans;
+    private List<Integer> list;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        ans = new ArrayList<>();
+        list = new ArrayList<>();
+        backtracking(candidates, target, 0);
+        return ans;
+    }
+    
+    public void backtracking(int[] candidates, int target, int sum) {
+        if(sum == target) {
+            List<Integer> nlist = new ArrayList<>(list);
+            Collections.sort(nlist);
+            if(!ans.contains(nlist)) {
+                ans.add(nlist);
+            }
+            return;
+        }
+        if(sum > target) return;
+        
+        for(int i = 0; i < candidates.length; i++) {
+            list.add(candidates[i]);
+            sum += candidates[i];
+            backtracking(candidates, target, sum);
+            list.remove(list.size() - 1);
+            sum -= candidates[i];
+        }
+    }
+}
