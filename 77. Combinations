@@ -1,0 +1,21 @@
+class Solution {
+    List<List<Integer>> ans;
+    public List<List<Integer>> combine(int n, int k) {
+        ans = new ArrayList<>();
+        backtracking(n, 1, new ArrayList<Integer>(), k);
+        return ans;
+    }
+    
+    public void backtracking(int n, int start, ArrayList<Integer> list, int k) {
+        if(list.size() == k) {
+            ans.add(new ArrayList<Integer>(list));
+            return;
+        }
+        
+        for(int i = start; i <= n; i++) {
+            list.add(i);
+            backtracking(n, i + 1, list, k);
+            list.remove(list.size() - 1);
+        }
+    }
+}
