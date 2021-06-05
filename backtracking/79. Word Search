@@ -1,0 +1,50 @@
+class Solution {
+    private boolean find = false;
+    public boolean exist(char[][] board, String word) {
+        int row = board.length;
+        int col = board[0].length;
+        int len = word.length();
+        boolean[][] visited = new boolean[row][col];
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                visited[i][j] = false;
+            }
+        }
+        /*
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                System.out.print(visited[i][j] + " ");
+            }
+            System.out.println();
+        }*/
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++){
+                backtracking(board, i, j, 0, word, visited);
+                if(find) return true;
+            }
+                
+        }
+        return false;
+    }
+    
+    public void backtracking(char[][] board, int row, int col, int index, String target, boolean[][] visited) {
+        if(row < 0 || row >= board.length) return;
+        if(col < 0 || col >= board[0].length) return;
+        if(visited[row][col]) return;
+        if(board[row][col] != target.charAt(index)) return;
+        if(find) return;
+        if(index == target.length() - 1) {
+            find = true;
+            return;
+        }
+
+        visited[row][col] = true;
+                
+        backtracking(board, row - 1, col, index + 1, target, visited);
+        backtracking(board, row, col + 1, index + 1, target, visited);
+        backtracking(board, row + 1, col, index + 1, target, visited);
+        backtracking(board, row, col - 1, index + 1, target, visited);
+                
+        visited[row][col] = false;        
+    }
+}
