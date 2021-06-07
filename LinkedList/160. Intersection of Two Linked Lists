@@ -1,0 +1,47 @@
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int lenA = getLength(headA);
+        int lenB = getLength(headB);
+        
+        int diff = lenA - lenB;
+        
+        ListNode intersaction = null;
+        
+        if(diff >= 0) {
+            intersaction = intersactionNode(diff, headA, headB);
+        } else {
+            intersaction = intersactionNode(-diff, headB, headA);
+        }
+    
+        
+        //System.out.println(diff + ", " + lenB);
+        return intersaction;
+    }
+    
+    public int getLength(ListNode head) {
+        ListNode p = head;
+        int len = 0;
+        while(p != null) {
+            len++;
+            p = p.next;
+        }
+        return len;
+    }
+    
+    public ListNode intersactionNode(int diff, ListNode h1, ListNode h2) {
+        while(diff-- > 0) {
+            h1 = h1.next;
+        }
+        
+        while(h1 != null) {
+            if(h1 == h2) {
+                return h1;
+            } else {
+                h1 = h1.next;
+                h2 = h2.next;
+            }
+        }
+        
+        return null;
+    }
+}
