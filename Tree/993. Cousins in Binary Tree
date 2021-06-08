@@ -1,0 +1,34 @@
+class Solution {
+    List<Integer> list;
+    boolean sameParent = true;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        list = new ArrayList<>();
+        getDepth(root, x, y, 0);
+        //System.out.println("hx = " + list.get(0) + ", hy = " + list.get(1));
+        traverse(root, x, y);
+        return list.get(0).equals(list.get(1)) && sameParent;
+    }
+    
+    public void getDepth(TreeNode node, int x, int y, int depth) {
+        if(node == null) return ;
+        if(node.val == x || node.val == y) {
+            list.add(depth);
+            //return;
+        }
+        getDepth(node.left, x, y, depth + 1);
+        getDepth(node.right, x, y, depth + 1);
+        
+    }
+    public void traverse(TreeNode node, int x, int y) {
+        if(node == null) return;
+        if(node.left != null && node.right != null) {
+            if(node.left.val == x && node.right.val == y || (node.left.val == y && node.right.val == x)) {
+            sameParent = false;
+            return;
+        }
+        }
+        traverse(node.left, x, y);
+        traverse(node.right, x, y);
+
+    }
+}
