@@ -1,0 +1,17 @@
+class Solution {
+    private boolean find = false;
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        helper(root, targetSum);
+        return find;
+    }
+    public void helper(TreeNode node, int sum) {
+        if(node == null) return;
+        //System.out.println(node.val + ", " + sum);
+        if(node.left == null && node.right == null && sum == node.val){
+            find = true;
+            return;
+        }
+        helper(node.left, sum - node.val);
+        helper(node.right, sum - node.val);
+    }
+}
