@@ -1,0 +1,25 @@
+class Solution {
+    private List<List<Integer>> ans;
+    private List<Integer> list;
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        ans = new ArrayList<>();
+        list = new ArrayList<>();
+        
+        backtracking(n, k, 1);
+        
+        return ans;
+    }
+    
+    public void backtracking(int remain, int k, int start) {
+        if(list.size() == k && remain == 0) {
+            ans.add(new ArrayList<Integer>(list));
+            return;
+        }
+        
+        for(int i = start; i <= 9; i++) {
+            list.add(i);
+            backtracking(remain - i, k, i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
+}
