@@ -1,0 +1,23 @@
+class Solution {
+    // use number 1 to 5 to represent the 5 vowels.
+    List<Integer> list;
+    int count = 0;
+    public int countVowelStrings(int n) {
+        list = new ArrayList<>();
+        backtracking(5, n, 1);
+        return count;
+    }
+    
+    public void backtracking(int num, int len, int start) {
+        if(list.size() == len) {
+            count++;
+            return;
+        }
+        
+        for(int i = start; i <= num; i++) {
+            list.add(i);
+            backtracking(num, len, i);
+            list.remove(list.size() - 1);
+        }
+    }
+}
