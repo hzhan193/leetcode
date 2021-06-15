@@ -1,0 +1,21 @@
+class Solution {
+    private boolean find = false;
+    public boolean checkPowersOfThree(int n) {
+        backtracking(n, 16, 0);
+        
+        return find;
+    }
+    
+    public void backtracking(int target, int range, int start) {
+        if(target == 0) {
+            find = true;
+            return;
+        }
+        
+        for(int i = start; i <= range; i++) {
+            target = target - (int)Math.pow(3, i);
+            backtracking(target, range, i + 1);
+            target = target + (int)Math.pow(3, i);
+        }
+    }
+}
