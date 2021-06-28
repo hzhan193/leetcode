@@ -1,0 +1,17 @@
+class Solution {
+    public char findTheDifference(String s, String t) {
+        List<Character> ans = new ArrayList<>();
+        char diff = '\0';
+        for(char ch : s.toCharArray()) {
+            ans.add(ch);
+        }
+        for(char c : t.toCharArray()) {
+            if(ans.contains(c)) {
+                ans.remove((Character)c);
+            }else {
+                diff = c;
+            }
+        }
+        return diff;
+    }
+}
