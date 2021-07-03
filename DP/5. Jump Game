@@ -1,0 +1,23 @@
+/**
+ * this one is using backtracking to solve the problem but it has time limit.
+ */
+class Solution {
+    boolean reach = false;
+    public boolean canJump(int[] nums) {
+        jump(nums, 0, nums.length - 1);
+        
+        return reach;
+    }
+    
+    public void jump(int[] nums, int start, int target) {
+        if(target <= 0) {
+            reach = true;
+            return;
+        }
+        for(int i = 1; i <= nums[start]; i++) {
+            target -= i;
+            jump(nums, start + i, target);
+            target += i;
+        }
+    }
+}
