@@ -1,0 +1,40 @@
+class Solution {
+    public char findTheDifference(String s, String t) {
+        List<Character> ans = new ArrayList<>();
+        char diff = '\0';
+        for(char ch : s.toCharArray()) {
+            ans.add(ch);
+        }
+        for(char c : t.toCharArray()) {
+            if(ans.contains(c)) {
+                ans.remove((Character)c);
+            }else {
+                diff = c;
+            }
+        }
+        return diff;
+    }
+}
+
+
+class Solution {
+    public char findTheDifference(String s, String t) {
+        HashMap<Character, Integer> ans = new HashMap<>();
+        char diff = '\0';
+        for(char ch : s.toCharArray()) {
+            if(ans.containsKey(ch)) {
+                ans.put(ch, ans.get(ch) + 1);
+            }else {
+                ans.put(ch, 1);
+            }
+        }
+        for(char c : t.toCharArray()) {
+            if(ans.containsKey(c) && ans.get(c) > 0) {
+                ans.put(c, ans.get(c) - 1);
+            }else {
+                diff = c;
+            }
+        }
+        return diff;
+    }
+}
