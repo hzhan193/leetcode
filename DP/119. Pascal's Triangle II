@@ -1,0 +1,24 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        int numRows = rowIndex + 1;
+        List<Integer> ans = new ArrayList<>();
+        
+        int[][] dp = new int[numRows][numRows];
+        for(int i = 0; i < numRows; i++) {
+            for(int j = 0; j <= i; j++){
+                dp[i][0] = 1;
+                dp[i][i] = 1;
+            }
+        }
+        
+        for(int i = 1; i < numRows; i++){
+            for(int j = 1; j <= i; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];
+            }
+        }
+        for(int j = 0; j < numRows; j++) {
+                ans.add(dp[rowIndex][j]);
+        }
+        return ans;
+    }
+}
