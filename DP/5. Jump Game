@@ -21,3 +21,27 @@ class Solution {
         }
     }
 }
+
+
+/**
+ * use greedy to solve the problem.
+ * find the current index and check if the current max length can reach the index or not
+ * if the current index cannot be reached, then return false.
+ * if the current index can be reached, update the max reached index, then increase the 
+ * the current index.
+ */
+class Solution {
+    
+    public boolean canJump(int[] nums) {
+        if(nums.length <= 1) return true;
+        int maxReach = 0;
+        
+        // i represents the current index can be reached
+        for(int i = 0; i < nums.length; i++) {
+            if(maxReach < i) return false;
+            //update the max lenth can be touched 
+            maxReach = Math.max(maxReach, nums[i] + i);
+        }
+        return true;
+    }
+}
