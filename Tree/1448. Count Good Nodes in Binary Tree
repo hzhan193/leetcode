@@ -1,0 +1,19 @@
+class Solution {
+    private int count;
+    public int goodNodes(TreeNode root) {
+        count = 0;
+        helper(root, Integer.MIN_VALUE);
+        
+        return count;
+    }
+    
+    public void helper(TreeNode node, int curMax) {
+        if(node == null) return;
+        if(node.val >= curMax) {
+            count++;
+            curMax = node.val;
+        }
+        helper(node.left, curMax);
+        helper(node.right, curMax);
+    }
+}
