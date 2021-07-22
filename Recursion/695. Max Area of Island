@@ -1,0 +1,37 @@
+class Solution {
+    boolean[][] visited;
+    int maxArea;
+    int curMax;
+    public int maxAreaOfIsland(int[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+
+        maxArea = 0;
+        visited = new boolean[row][col];
+        
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                curMax = 0;
+                if(!visited[i][j] && grid[i][j] == 1) {
+                    dfs(i, j, grid);
+                    maxArea = Math.max(curMax, maxArea);
+                }
+            }
+        }
+        
+        return maxArea;
+    }
+    
+    public void dfs(int r, int c, int[][] grid) {
+        if(r < 0 || r == grid.length || c < 0 || c == grid[0].length) return;
+        if(visited[r][c] || grid[r][c] == 0) return;
+        
+        visited[r][c] = true;
+        curMax++;
+        
+        dfs(r - 1, c, grid);
+        dfs(r + 1, c, grid);
+        dfs(r, c - 1, grid);
+        dfs(r, c + 1, grid);
+    }
+}
