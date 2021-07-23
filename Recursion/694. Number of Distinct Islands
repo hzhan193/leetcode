@@ -1,0 +1,43 @@
+class Solution {
+    boolean[][] visited;
+    HashSet<List<Integer>> ans;
+    List<Integer> list;
+    int prefix_i;
+    int prefix_j;
+    public int numDistinctIslands(int[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+        //System.out.println("row is: " + row + ", and the col is: " + col);
+        visited = new boolean[row][col];
+        ans = new HashSet<>();
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                if(!visited[i][j] && grid[i][j] == 1){
+                    list = new ArrayList<>();
+                    prefix_i = i;
+                    prefix_j = j;
+                    dfs(i, j, grid);
+                    ans.add(list);
+                }
+            }
+        }
+        
+        return ans.size();
+    }
+    
+    public void dfs(int i, int j, int[][] grid) {
+        if(i < 0 || j < 0 || i == grid.length || j == grid[0].length 
+           || grid[i][j] == 0 || visited[i][j]) {
+            return;
+        }
+
+        visited[i][j] = true;
+        list.add(i - prefix_i);
+        list.add(j - prefix_j);
+        
+        dfs(i - 1, j, grid);
+        dfs(i + 1, j, grid);
+        dfs(i, j - 1, grid);
+        dfs(i, j + 1, grid);
+    }
+}
