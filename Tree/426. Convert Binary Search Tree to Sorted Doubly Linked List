@@ -1,0 +1,49 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val,Node _left,Node _right) {
+        val = _val;
+        left = _left;
+        right = _right;
+    }
+};
+*/
+
+class Solution {
+    public Node treeToDoublyList(Node root) {
+        if(root == null) return null;
+        if(root.left == null && root.right == null) {
+            root.left = root;
+            root.right = root;
+            return root;
+        }
+        
+        List<Node> list = new ArrayList<>();
+        helper(root, list);
+        for(int i = 0; i < list.size() - 1; i++) {
+            list.get(i).right = list.get(i + 1);
+            list.get(i + 1).left = list.get(i);
+        }
+        list.get(0).left = list.get(list.size() - 1);
+        list.get(list.size() - 1).right = list.get(0);
+        
+        return list.get(0);
+    }
+    
+    public void helper(Node node, List<Node> l) {
+        if(node == null) return;
+        helper(node.left, l);
+        l.add(node);
+        helper(node.right, l);
+    }
+}
