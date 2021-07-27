@@ -1,0 +1,27 @@
+class Solution {
+    private double maxAvg;
+    public double maximumAverageSubtree(TreeNode root) {
+        maxAvg = Double.MIN_VALUE;
+        helper(root);
+        
+        return maxAvg;
+    }
+    
+    public int helper(TreeNode node) {
+        if(node == null) return 0;
+
+        int left = helper(node.left);
+        int right = helper(node.right);
+        
+        int cnt = left + right + 1;
+
+        if(left != 0) node.val += node.left.val;
+        if(right != 0) node.val += node.right.val;
+        
+        double avg = (double) node.val / cnt;
+        
+        maxAvg = Math.max(avg, maxAvg);
+        
+        return cnt;
+        
+    }
