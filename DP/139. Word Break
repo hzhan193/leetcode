@@ -1,0 +1,25 @@
+class Solution { // use recursive method
+    private HashSet<String> dict;
+    public boolean wordBreak(String s, List<String> wordDict) {
+        dict = new HashSet<>();
+        for(String word : wordDict) {
+            dict.add(word);
+        }
+        System.out.println(dict);
+        if(nextBreak(s, 0)) return true;
+        return false;
+    }
+    
+    public boolean nextBreak(String s, int start) {
+        if(start == s.length()) return true;
+        
+        for(int i = start; i < s.length(); i++) {
+            String substr = s.substring(start, i + 1);
+            
+            if(dict.contains(substr) && nextBreak(s, i + 1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
